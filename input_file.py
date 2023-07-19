@@ -17,7 +17,14 @@
 
 
 import numpy as np
-import csv
+
+
+# linear normalization
+def norm(data):
+    for i in range(len(data[0, :])):
+        max = np.max(data[:, i])
+        data[:, i] /= max
+    return data
 
 
 def import_file(name, train_percent):
@@ -127,7 +134,21 @@ def import_file(name, train_percent):
         elif input[i, 10] == "80+":
             data[i, 10] = 80
 
+        # smoking
+        if input[i, 14] == "Yes":
+            data[i, 14] = 1
 
+        # just move over other data
+        data[i, 11] = input[i, 11]
+        data[i, 12] = input[i, 12]
+        data[i, 13] = input[i, 13]
+        data[i, 15] = input[i, 15]
+        data[i, 16] = input[i, 16]
+        data[i, 17] = input[i, 17]
+        data[i, 18] = input[i, 18]
+
+    # normalize data
+    data = norm(data)
 
     # split data up into train and validate sets
     train_data = np.round(len(data[:, 0]*train_percent), 0)
