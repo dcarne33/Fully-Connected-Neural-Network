@@ -151,8 +151,11 @@ def import_file(name, train_percent):
     data = norm(data)
 
     # split data up into train and validate sets
-    train_data = np.round(len(data[:, 0]*train_percent), 0)
-    validate_data = np.round(len(data[:, 0] * (1-train_percent)), 0)
-    train = np.zeros((train_data, len(data[0, :])))
-    validate = np.zeros((validate_data, len(data[0, :])))
+    train_data = np.round(len(data[:, 0])*train_percent, 0)
+    validate_data = np.round(len(data[:, 0]) * (1-train_percent), 0)
+    train = np.zeros((int(train_data), len(data[0, :])))
+    validate = np.zeros((int(validate_data), len(data[0, :])))
+    train[:, :] = data[:int(train_data), :]
+    validate[:, :] = data[int(train_data):, :]
+
     return train, validate

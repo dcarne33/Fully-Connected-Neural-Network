@@ -19,7 +19,7 @@ import numpy as np
 from input_file import import_file
 
 if __name__ == "__main__":
-    print("Welcome! This is a fully connected neural network.")
+    print("Welcome! This is a fully connected neural network to solve the K.")
 
     # NN size, eg. a NN with 10 inputs, 2 hidden layers with 5 nodes each and 1 output node would be [10, 5, 5, 1]
     size = np.array([4, 300, 1])
