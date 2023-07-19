@@ -17,10 +17,11 @@
 
 import numpy as np
 from input_file import import_file
+from mini_batch import split_batch
 
 if __name__ == "__main__":
-    print("Welcome! This is a fully connected neural network to solve the K.")
-
+    print("Welcome! This is a fully connected neural network to solve the Kaggle cardiovascular disease problem.")
+    print("https://www.kaggle.com/datasets/alphiree/cardiovascular-diseases-risk-prediction-dataset?resource=download")
     # NN size, eg. a NN with 10 inputs, 2 hidden layers with 5 nodes each and 1 output node would be [10, 5, 5, 1]
     size = np.array([4, 300, 1])
 
@@ -32,7 +33,7 @@ if __name__ == "__main__":
     beta = 0.9
 
     # Number of batches
-    batch = 1
+    batch = 5
 
     # name of input data
     name = str("CVD_cleaned.txt")
@@ -41,5 +42,11 @@ if __name__ == "__main__":
     train_percent = 0.8
 
     # split input into training and validation and clean up categorical inputs
+    # this function is specific to the dataset
     train, validate = import_file(name, train_percent)
+
+    # split into mini batches
+    train = split_batch(train, batch)
+
+
 
