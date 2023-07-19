@@ -16,18 +16,33 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 
+from numba import njit
+import numpy as np
+
+
 # Leaky Relu
 @njit()
 def lrelu(y, alpha):
     if y < 0:
-        y = 0.3*alpha
+        y = alpha*y
     return y
 
 # Leaky Relu derivative
 @njit()
 def lrelu_der(y, alpha):
     if y <= 0:
-        y = alpha
+        return alpha
     else:
-        y = 1
-    return y
+        return 1
+
+
+# sigmoid
+@njit()
+def sigmoid(y):
+    return 1/(1+np.exp(-y))
+
+# sigmoid derivative
+@njit()
+def sigmoid_der(y):
+    der = sigmoid(y)*(1-sigmoid(y))
+    return der

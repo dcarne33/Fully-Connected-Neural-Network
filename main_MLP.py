@@ -25,7 +25,7 @@ if __name__ == "__main__":
     size = np.array([4, 300, 1])
 
     # epochs, number of iterations
-    epochs = 100000
+    epochs = 100
 
     # Learning rate and momentum for backpropagation
     alpha = 0.3
