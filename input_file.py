@@ -134,7 +134,7 @@ def import_file(name, train_percent):
         elif input[i, 10] == "80+":
             data[i, 10] = 80
 
-        # smoking
+        # smoking category
         if input[i, 14] == "Yes":
             data[i, 14] = 1
 
