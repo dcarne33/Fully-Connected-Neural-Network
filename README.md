@@ -1,2 +1,2 @@
 # Fully-Connected-Neural-Network
-Desc.
+Fully connected neural network written from scratch to solve the Kaggle cardiovascular disease problem
