@@ -37,6 +37,9 @@ if __name__ == "__main__":
     # name of input data
     name = str("CVD_cleaned.txt")
 
+    # percent of data to train on as a decimal
+    train_percent = 0.8
+
     # split input into training and validation and clean up categorical inputs
-    train, validate = import_file(name)
+    train, validate = import_file(name, train_percent)
 

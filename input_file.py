@@ -20,7 +20,7 @@ import numpy as np
 import csv
 
 
-def import_file(name):
+def import_file(name, train_percent):
     input = np.loadtxt(name, delimiter="\t", dtype=str, skiprows=1)
     # second array that contains non-string post-processed values
     data = np.zeros((len(input[:, 0]), len(input[0, :])))
@@ -130,5 +130,8 @@ def import_file(name):
 
 
     # split data up into train and validate sets
-
+    train_data = np.round(len(data[:, 0]*train_percent), 0)
+    validate_data = np.round(len(data[:, 0] * (1-train_percent)), 0)
+    train = np.zeros((train_data, len(data[0, :])))
+    validate = np.zeros((validate_data, len(data[0, :])))
     return train, validate
