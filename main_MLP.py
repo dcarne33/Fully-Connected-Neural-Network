@@ -50,6 +50,9 @@ if __name__ == "__main__":
     # split into mini batches
     train = split_batch(train, batch)
 
+    # initialize NN
+    layers = initialize(size, train)
+
 
 
 

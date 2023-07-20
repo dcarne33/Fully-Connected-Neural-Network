@@ -17,35 +17,44 @@
 
 import numpy as np
 
+# each layer is an instance
+class Layer:
+    def __init__(self, node_number_in, node_number, train_size):
+        # weights and biases
+        # weight array is (node in prev layer, current node)
+        self.w = np.random.rand(node_number_in, node_number)-0.5
+        self.b = np.random.rand(node_number) - 0.5
+
+        # inputs (n) and output (z) of each node for each training point
+        self.n = np.zeros((node_number, train_size))
+        self.z = np.zeros((node_number, train_size))
+
+        # gradients, store for each training point
+        self.dcdn = np.zeros((node_number, train_size))
+        self.dcdb = np.zeros((node_number, train_size))
+        self.dcdw = np.zeros((node_number_in, node_number, train_size))
+
+        # previous gradients for momentum
+        self.dcdb_prev = np.zeros((node_number))
+        self.dcdw_prev = np.zeros((node_number_in, node_number))
+
+
+def forward_propagation(layers, train):
+    return
+
+
+def train_nn(layers, train, epochs):
+    # number of batches
+    batch_number = len(train[0, 0, :])
+    return
+
 
 def initialize(size, train):
-    # max number of nodes in a layer
-    max = 0
-    for i in range(len(size)):
-        if size[i] > max:
-            max = size[i]
+    # each object in layers is one class containing all information including weights and biases
+    layers = []
+    # initilize each layer
+    for i in range(len(size)-1):
+        layers.append(Layer(size[i], size[i+1], len(train[:, 0, 0])))
 
 
-    ### MAKE THIS A CLASS WHERE EACH LAYER IS AN OBJECT WITH AN ARRAY OF APPROPRIATE SIZE
-
-
-    # weights and biases array
-    # first dimension is layer number, second dim. is incoming node, third dim. is outgoing node
-    w = np.random.rand(len(size), max, max)-0.5
-    # first dimension is layer number, second dim. is node
-    b = np.random.rand(len(size), max)-0.5
-
-    # inputs (n) and outputs (z) of each node
-    # first dim. is layer number, second dim. is node number, third dim is for each training piece in a batch
-    n = np.zeros(((len(size)), max, len(train[:, 0, 0])))
-    z = np.zeros(((len(size)), max, len(train[:, 0, 0])))
-
-    # store each gradient, same dim as prev
-    dcdn = np.zeros((len(size), max, len(train[:, 0, 0])))
-    dcdb = np.zeros((len(size), max, len(train[:, 0, 0])))
-    dcdw = np.zeros((len(size), max, max, len(train[:, 0, 0])))
-    # store previous gradients for momentum
-    dcdb_prev = np.zeros((len(size), max))
-    dcdw_prev = np.zeros((len(size), max, max))
-
-    return
+    return layers
