@@ -18,6 +18,8 @@
 import numpy as np
 from input_file import import_file
 from mini_batch import split_batch
+from NN_functions import initialize
+
 
 if __name__ == "__main__":
     print("Welcome! This is a fully connected neural network to solve the Kaggle cardiovascular disease problem.")
@@ -47,6 +49,7 @@ if __name__ == "__main__":
 
     # split into mini batches
     train = split_batch(train, batch)
+
 
 
 

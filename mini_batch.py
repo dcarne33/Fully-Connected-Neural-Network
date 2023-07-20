@@ -31,6 +31,4 @@ def split_batch(train, batch):
             batch_iter += 1
         train2[int(i-batch_iter*max_size), :, batch_iter] = train[i, :]
 
-
-
     return train2
