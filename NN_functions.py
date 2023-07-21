@@ -82,9 +82,30 @@ def forward_propagation(layers, input, size):
     return layers
 
 
-def train_nn(layers, train, epochs):
+def backward_propagation(layers, input, size):
+    # output layer first as this is unique
+    # loop through each data point
+    for point in range(len(input[:, 0])):
+        # dcdn at single output node
+        layers[len(size)-2].dcdn = 1
+
+    return
+
+
+def train_nn(layers, train, epochs, size):
     # number of batches
     batch_number = len(train[0, 0, :])
+
+    # loop through each epoch
+    for iter in range(epochs):
+        # loop through each batch
+        for batch in range(batch_number):
+            # forward propagation
+            layers = forward_propagation(layers, train[:, :, batch], size)
+
+            # backward propagation
+
+
     return
 
 
