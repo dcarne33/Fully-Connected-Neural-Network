@@ -57,7 +57,7 @@ if __name__ == "__main__":
     train = split_batch(train, batch)
 
     # initialize NN
-    layers = initialize(size, train)
+    layers = initialize(size, train, activation)
 
 
 

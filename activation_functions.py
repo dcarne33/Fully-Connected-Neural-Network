@@ -35,6 +35,21 @@ def lrelu_der(y, alpha):
     else:
         return 1
 
+# Relu
+@njit()
+def relu(y, alpha):
+    if y < 0:
+        y = 0
+    return y
+
+# Relu derivative
+@njit()
+def relu_der(y, alpha):
+    if y <= 0:
+        return 0
+    else:
+        return 1
+
 
 # sigmoid
 @njit()
@@ -46,3 +61,13 @@ def sigmoid(y):
 def sigmoid_der(y):
     der = sigmoid(y)*(1-sigmoid(y))
     return der
+
+# linear
+@njit()
+def linear(y):
+    return y
+
+# linear derivative
+@njit()
+def linear_der(y):
+    return 1

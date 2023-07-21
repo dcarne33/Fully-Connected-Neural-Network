@@ -16,10 +16,14 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 import numpy as np
+from activation_functions import sigmoid, lrelu, relu, linear
 
 # each layer is an instance
 class Layer:
-    def __init__(self, node_number_in, node_number, train_size):
+    def __init__(self, node_number_in, node_number, train_size, activation):
+        # activation type
+        self.activation = activation
+
         # weights and biases
         # weight array is (node in prev layer, current node)
         self.w = np.random.rand(node_number_in, node_number)-0.5
@@ -40,13 +44,29 @@ class Layer:
 
 
 def forward_propagation(layers, input, size):
-    # move over input first?
+    # func map for activation
+    activation_map = {"sig": sigmoid, "lrelu": lrelu, "relu": relu, "lin": linear}
 
     # input dimension (data points, inputs)
     # loop through each data point
     for point in range(len(input[:, 0])):
+        # first layer is unique
+        # loop through each node in the layer
+        for i in range(size[1]):
+            # clear out prev values
+            layers[0].n[i, point] = 0
+            # loop through each node in previous layer
+            for j in range(size[0]):
+                # n += z*w
+                layers[0].n[i, point] += input[point, i] * layers[0].w[i, j]
+            # add bias
+            layers[0].n[i, point] += layers[0].b[i]
+            # activation function
+            layers[0].n[i, point] = activation_map[layers[0].activation](layers[0].n[i, point])
+
+
         # loop through each layer
-        for layer in range(len(size)-1):
+        for layer in range(1, len(size)-1):
             # loop through each node in the layer
             for i in range(size[layer+1]):
                 # clear out prev values
@@ -54,11 +74,12 @@ def forward_propagation(layers, input, size):
                 # loop through each node in previous layer
                 for j in range(size[layer]):
                     # n += z*w
-                    layers[layer].n[i, point] += layers[layer-1].z[i, point]*layers[layer-1].w[i, j]
+                    layers[layer].n[i, point] += layers[layer-1].z[i, point]*layers[layer].w[i, j]
                 # add bias
                 layers[layer].n[i, point] += layers[layer].b[i]
                 # activation function
-    return
+                layers[layer].n[i, point] = activation_map[layers[layer].activation](layers[layer].n[i, point])
+    return layers
 
 
 def train_nn(layers, train, epochs):
@@ -67,12 +88,12 @@ def train_nn(layers, train, epochs):
     return
 
 
-def initialize(size, train):
+def initialize(size, train, activation):
     # each object in layers is one class containing all information including weights and biases
     layers = []
     # initilize each layer
     for i in range(len(size)-1):
-        layers.append(Layer(size[i], size[i+1], len(train[:, 0, 0])))
+        layers.append(Layer(size[i], size[i+1], len(train[:, 0, 0]), activation[i]))
 
 
     return layers
