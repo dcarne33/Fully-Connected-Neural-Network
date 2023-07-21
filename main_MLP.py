@@ -27,6 +27,10 @@ if __name__ == "__main__":
     # NN size, eg. a NN with 10 inputs, 2 hidden layers with 5 nodes each and 1 output node would be [10, 5, 5, 1]
     size = np.array([4, 300, 1])
 
+    # activation function of each array, one for each non-input layer
+    # options: "relu", "lrelu", "sig", "lin"
+    activation = ["relu", "linear"]
+
     # epochs, number of iterations
     epochs = 100
 
@@ -42,6 +46,8 @@ if __name__ == "__main__":
 
     # percent of data to train on as a decimal
     train_percent = 0.8
+
+    # ADD IN CHECK FOR ERRORS
 
     # split input into training and validation and clean up categorical inputs
     # this function is specific to the dataset

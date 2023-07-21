@@ -39,7 +39,25 @@ class Layer:
         self.dcdw_prev = np.zeros((node_number_in, node_number))
 
 
-def forward_propagation(layers, train):
+def forward_propagation(layers, input, size):
+    # move over input first?
+
+    # input dimension (data points, inputs)
+    # loop through each data point
+    for point in range(len(input[:, 0])):
+        # loop through each layer
+        for layer in range(len(size)-1):
+            # loop through each node in the layer
+            for i in range(size[layer+1]):
+                # clear out prev values
+                layers[layer].n[i, point] = 0
+                # loop through each node in previous layer
+                for j in range(size[layer]):
+                    # n += z*w
+                    layers[layer].n[i, point] += layers[layer-1].z[i, point]*layers[layer-1].w[i, j]
+                # add bias
+                layers[layer].n[i, point] += layers[layer].b[i]
+                # activation function
     return
 
 
